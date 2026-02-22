@@ -21,6 +21,8 @@ class UserRepositoryImpl implements UserRepository {
           id: model.id,
           name: model.name,
           email: model.email,
+          password: model.password,
+          isRegistered: model.isRegistered,
           profileImageUrl: model.profileImageUrl,
         ),
       );
@@ -36,6 +38,8 @@ class UserRepositoryImpl implements UserRepository {
         ..id = user.id
         ..name = user.name
         ..email = user.email
+        ..password = user.password
+        ..isRegistered = user.isRegistered
         ..profileImageUrl = user.profileImageUrl;
       await localDataSource.saveUser(model);
       return const Right(null);

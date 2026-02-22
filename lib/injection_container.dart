@@ -8,6 +8,8 @@ import 'features/profile/data/repositories/user_repository_impl.dart';
 import 'features/profile/domain/repositories/user_repository.dart';
 import 'features/profile/domain/usecases/get_user.dart';
 import 'features/profile/domain/usecases/save_user.dart';
+import 'features/profile/domain/usecases/login_user.dart';
+import 'features/profile/domain/usecases/register_user.dart';
 import 'features/todo/data/datasources/todo_local_data_source.dart';
 import 'features/todo/data/models/todo_model.dart';
 import 'features/todo/data/repositories/todo_repository_impl.dart';
@@ -33,7 +35,14 @@ Future<void> init() async {
       deleteTodo: sl(),
     ),
   );
-  sl.registerFactory(() => ProfileBloc(getUser: sl(), saveUser: sl()));
+  sl.registerFactory(
+    () => ProfileBloc(
+      getUser: sl(),
+      saveUser: sl(),
+      loginUser: sl(),
+      registerUser: sl(),
+    ),
+  );
 
   // Use cases - Todo
   sl.registerLazySingleton(() => AddTodo(sl()));
@@ -44,6 +53,8 @@ Future<void> init() async {
   // Use cases - Profile
   sl.registerLazySingleton(() => GetUser(sl()));
   sl.registerLazySingleton(() => SaveUser(sl()));
+  sl.registerLazySingleton(() => LoginUser(sl()));
+  sl.registerLazySingleton(() => RegisterUser(sl()));
 
   // Repository
   sl.registerLazySingleton<TodoRepository>(

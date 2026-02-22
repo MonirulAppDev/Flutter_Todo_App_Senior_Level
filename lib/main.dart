@@ -6,6 +6,8 @@ import 'features/todo/presentation/bloc/todo_event.dart';
 import 'features/profile/presentation/bloc/profile_bloc.dart';
 import 'features/profile/presentation/bloc/profile_event.dart';
 import 'features/todo/presentation/pages/main_navigation_page.dart';
+import 'features/profile/presentation/pages/login_page.dart';
+import 'features/profile/presentation/bloc/profile_state.dart';
 import 'injection_container.dart' as di;
 import 'injection_container.dart';
 
@@ -32,7 +34,22 @@ class MyApp extends StatelessWidget {
         title: 'Premium Todo',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
-        home: const MainNavigationPage(),
+        home: BlocBuilder<ProfileBloc, ProfileState>(
+          builder: (context, state) {
+            if (state is Authenticated || state is ProfileLoaded) {
+              return const MainNavigationPage();
+            } else if (state is Unauthenticated) {
+              return const LoginPage();
+            } else if (state is ProfileLoading) {
+              return const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
+            } else {
+              // Initial or Error
+              return const LoginPage();
+            }
+          },
+        ),
       ),
     );
   }

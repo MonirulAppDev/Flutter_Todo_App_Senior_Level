@@ -7,9 +7,9 @@ class UserModel {
   Id id = Isar.autoIncrement;
 
   late String name;
-
   late String email;
-
+  String? password;
+  late bool isRegistered;
   String? profileImageUrl;
 
   UserModel();

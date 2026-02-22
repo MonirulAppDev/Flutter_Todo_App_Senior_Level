@@ -20,6 +20,16 @@ class ProfileLoaded extends ProfileState {
   List<Object?> get props => [user];
 }
 
+class Authenticated extends ProfileState {
+  final UserEntity user;
+  const Authenticated(this.user);
+
+  @override
+  List<Object?> get props => [user];
+}
+
+class Unauthenticated extends ProfileState {}
+
 class ProfileError extends ProfileState {
   final String message;
   const ProfileError(this.message);

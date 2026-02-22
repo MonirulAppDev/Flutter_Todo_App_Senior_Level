@@ -22,6 +22,8 @@ class ProfilePage extends StatelessWidget {
               return _buildEmptyProfile(context);
             }
             return _buildProfileContent(context, user);
+          } else if (state is Authenticated) {
+            return _buildProfileContent(context, state.user);
           } else if (state is ProfileError) {
             return Center(child: Text(state.message));
           }
@@ -122,9 +124,10 @@ class ProfilePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () =>
+                      context.read<ProfileBloc>().add(SignOutEvent()),
                   child: const Text(
-                    'Logout',
+                    'Logout / Switch Account',
                     style: TextStyle(color: AppColors.error),
                   ),
                 ),
