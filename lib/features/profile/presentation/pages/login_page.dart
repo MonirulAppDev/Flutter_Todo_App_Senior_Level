@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(color: Colors.white70),
                       ),
                     ),
-                    const Spacer(),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.2),
+        color: Colors.white.withOpacity(0.2),
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(

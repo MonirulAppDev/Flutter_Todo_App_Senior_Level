@@ -160,6 +160,7 @@ class ProfilePage extends StatelessWidget {
 
 class EditProfileSheet extends StatefulWidget {
   final UserEntity? user;
+
   const EditProfileSheet({super.key, this.user});
 
   @override
