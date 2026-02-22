@@ -101,10 +101,10 @@ class DashboardPage extends StatelessWidget {
                               Icon(
                                 Icons.assignment_turned_in_outlined,
                                 size: 80,
-                                color: AppColors.textSecondary.withOpacity(0.5),
+                                color: Colors.white.withAlpha(0.7.toInt()),
                               ),
-                              const SizedBox(height: 16),
-                              Text(
+                              const SizedBox(height: 12),
+                              const Text(
                                 'No tasks for this day',
                                 style: TextStyle(
                                   color: AppColors.textSecondary,
@@ -203,7 +203,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
   String _selectedCategory = 'General';
-  int _selectedColor = AppColors.primary.value;
+  Color _selectedColor = AppColors.primary;
 
   final List<String> _categories = [
     'General',
@@ -332,9 +332,11 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
               itemCount: _colors.length,
               itemBuilder: (context, index) {
                 final color = _colors[index];
-                final isSelected = _selectedColor == color.value;
+                final isSelected = _selectedColor == color;
                 return GestureDetector(
-                  onTap: () => setState(() => _selectedColor = color.value),
+                  onTap: () => setState(
+                    () => _selectedColor = color,
+                  ), // Store Color object
                   child: Container(
                     width: 40,
                     height: 40,
@@ -342,11 +344,13 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
                     decoration: BoxDecoration(
                       color: color,
                       shape: BoxShape.circle,
-                      border: isSelected
+                      border:
+                          isSelected // Use isSelected for border
                           ? Border.all(color: AppColors.textPrimary, width: 2)
                           : null,
                     ),
-                    child: isSelected
+                    child:
+                        isSelected // Use isSelected for check icon
                         ? const Icon(Icons.check, color: Colors.white, size: 20)
                         : null,
                   ),
@@ -363,25 +367,26 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
                     TodoEntity(
                       id: 0,
                       title: _titleController.text,
-                      description: _descController.text,
+                      description:
+                          _descController.text, // Corrected controller name
                       date: DateTime.now(),
                       isCompleted: false,
-                      category: _selectedCategory,
-                      colorCode: _selectedColor,
+                      category: _selectedCategory, // Corrected variable name
+                      colorCode: _selectedColor.toARGB32(),
                     ),
                   ),
                 );
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Task created!'),
+                    content: Text('Task added successfully!'),
                     backgroundColor: AppColors.success,
                     behavior: SnackBarBehavior.floating,
                   ),
                 );
               }
             },
-            child: const Text('Create Task'),
+            child: const Text('Add Task'),
           ),
         ],
       ),

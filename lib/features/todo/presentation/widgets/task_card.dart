@@ -24,7 +24,7 @@ class TaskCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -81,7 +81,9 @@ class TaskCard extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: AppColors.textPrimary,
+                                    color: AppColors.textPrimary.withValues(
+                                      alpha: 0.6,
+                                    ),
                                     decoration: todo.isCompleted
                                         ? TextDecoration.lineThrough
                                         : null,
